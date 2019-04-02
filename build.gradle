@@ -28,7 +28,7 @@ allprojects {
         maven { url "https://maven.aliyun.com/nexus/content/repositories/releases/"}
     }
 }
-rootProject.extensions.add("tzj_webview",Type.isAPP.name())
+rootProject.extensions.add("tzj_webview",Type.isModule.name())
 enum Type{
     isAPP,
     isModule,
