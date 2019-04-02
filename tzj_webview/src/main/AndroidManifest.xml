@@ -1,0 +1,23 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tzj.webview" >
+
+
+    <application>
+        <activity android:name="com.tzj.webview.TzjWebViewActivity"
+            android:theme="@style/Theme.AppCompat.Light">
+        </activity>
+
+
+        <!--FileProvider共享文件、缓存-->
+        <provider
+            android:name="com.tzj.webview.PictureFileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+</manifest>
