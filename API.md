@@ -4,7 +4,7 @@ app/(android-包名/ios-BundId)
 
 ## js 调用平台
 #### 刷新
-```java
+```text
 /**
  * 网页出错情况下 返回上一个 Url
  * 其他情况刷新
@@ -12,7 +12,7 @@ app/(android-包名/ios-BundId)
 Refresh.refresh();
 ```
 #### title
-```java
+```text
 /**
  * 显示标题
  */
@@ -24,7 +24,7 @@ Title.show();
 Title.hide();
 ```
 #### 用户
-```java
+```text
 /**
  * 用户信息，
  * 会回调 javascript:setUserInfo(json)
@@ -41,7 +41,7 @@ UserInfo.getUserInfoOrLogin();
 ## 平台调用 js
 
 #### 用户
-```java
+```text
 /**
     {
           "userId":"具体情况而定",
