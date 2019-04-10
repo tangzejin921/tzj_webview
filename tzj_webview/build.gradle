@@ -52,6 +52,18 @@ android {
     sourceSets {
         main {
             if (moduleType == Type.isAPP.name()) {
+                android.applicationVariants.all {
+                    variant ->
+                        variant.outputs.all {
+                            //这里修改apk文件名
+                            outputFileName =
+                                    "${project.getName()}" +
+                                            "_${variant.versionCode}" +
+                                            "_v${variant.versionName}" +
+                                            "_${variant.name}" +
+                                            "_${getDate()}.apk"
+                        }
+                }
                 manifest.srcFile 'src/module/AndroidManifest.xml'
                 java.srcDirs = [
                         'src/main/java',
@@ -75,19 +87,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    android.applicationVariants.all {
-        variant ->
-            variant.outputs.all {
-                //这里修改apk文件名
-                outputFileName =
-                        "${project.getName()}" +
-                        "_${variant.versionCode}" +
-                        "_v${variant.versionName}" +
-                        "_${variant.name}" +
-                        "_${getDate()}.apk"
-            }
-    }
-
 }
 
 def getDate() {
