@@ -1,16 +1,18 @@
-if (rootProject.getExtensions().findByName(getName())==null){
-    ext.set("moduleType",Type.isModule.name())
-}else{
-    ext.set("moduleType",rootProject.getExtensions().getByName(getName()))
+if (rootProject.getExtensions().findByName(getName()) == null) {
+    ext.set("moduleType", Type.isModule.name())
+} else {
+    ext.set("moduleType", rootProject.getExtensions().getByName(getName()))
 }
-enum Type{
+
+enum Type {
     isAPP,
     isModule,
     isFlutterPlugin;
 }
-if (moduleType == Type.isAPP.name()){
+
+if (moduleType == Type.isAPP.name()) {
     apply plugin: 'com.android.application'
-}else {
+} else {
     apply plugin: 'com.android.library'
     if (moduleType == Type.isFlutterPlugin.name()) {
         def localProperties = new Properties()
@@ -21,7 +23,7 @@ if (moduleType == Type.isAPP.name()){
             }
         }
         def flutterRoot = localProperties.getProperty('flutter.sdk')
-        if(flutterRoot!=null) {
+        if (flutterRoot != null) {
             project.dependencies {
                 if (project.getConfigurations().findByName("compileOnly")) {
                     compileOnly project.files("$flutterRoot/bin/cache/artifacts/engine/android-arm/flutter.jar")
@@ -42,14 +44,14 @@ android {
         versionName "1.0.0"
         javaCompileOptions {
             annotationProcessorOptions {
-                arguments = [ moduleName : project.getName() ]
+                arguments = [moduleName: project.getName()]
             }
         }
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     sourceSets {
         main {
-            if(moduleType == Type.isAPP.name()){
+            if (moduleType == Type.isAPP.name()) {
                 manifest.srcFile 'src/module/AndroidManifest.xml'
                 java.srcDirs = [
                         'src/main/java',
@@ -59,7 +61,7 @@ android {
                         'src/main/res',
                         'src/module/res'
                 ]
-            }else if(moduleType == Type.isFlutterPlugin.name()){
+            } else if (moduleType == Type.isFlutterPlugin.name()) {
                 java.srcDirs = [
                         'src/main/java',
                         'src/flutter/java'
@@ -73,7 +75,25 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    android.applicationVariants.all {
+        variant ->
+            variant.outputs.all {
+                //这里修改apk文件名
+                outputFileName =
+                        "${project.getName()}" +
+                        "_${variant.versionCode}" +
+                        "_v${variant.versionName}" +
+                        "_${variant.name}" +
+                        "_${getDate()}.apk"
+            }
+    }
 
+}
+
+def getDate() {
+    def date = new Date()
+    def formattedDate = date.format('yyyy_MM_dd_HH_mm')
+    return formattedDate
 }
 
 dependencies {
