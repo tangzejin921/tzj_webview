@@ -26,14 +26,33 @@ public class TzjWebViewActivity extends AppCompatActivity {
         context.startActivity(starter);
     }
 
+    /**
+     * @param context
+     * @param url
+     * @param showTitle 强制标题的显示还是影藏
+     */
+    public static void start(Context context, String url,Boolean showTitle,String title) {
+        Intent starter = new Intent(context, TzjWebViewActivity.class);
+        starter.putExtra("url",url);
+        starter.putExtra("showTitle",showTitle);
+        starter.putExtra("title",title);
+        context.startActivity(starter);
+    }
+
     private TzjWebView mWebView;
     private String url;
+    private Boolean showTitle;
+    private String title;
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         url = getIntent().getStringExtra("url");
+        if (getIntent().hasExtra("showTitle")){
+            showTitle = getIntent().getBooleanExtra("showTitle",true);
+        }
+        title = getIntent().getStringExtra("title");
         setContentView(mWebView = new TzjWebView(this));
         mWebView.addWebChromeClient(new DefWebChromeClient() {
             @Override
@@ -44,7 +63,16 @@ public class TzjWebViewActivity extends AppCompatActivity {
                 }
             }
         });
-        mWebView.interfaceJs(new JSTitle(getSupportActionBar()));
+        if(showTitle != null){
+            if (showTitle){
+                getSupportActionBar().show();
+                setTitle(title);
+            }else{
+                getSupportActionBar().hide();
+            }
+        }else{
+            mWebView.interfaceJs(new JSTitle(getSupportActionBar()));
+        }
         mWebView.interfaceJs(new JSRefresh());
         mWebView.interfaceJs(new JSUserInfo());
         mWebView.loadUrl(url);
