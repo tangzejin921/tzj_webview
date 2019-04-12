@@ -65,10 +65,10 @@ public class TzjWebViewActivity extends AppCompatActivity {
         });
         if(showTitle != null){
             if (showTitle){
-                getSupportActionBar().show();
+                setTitleVisibility(View.VISIBLE);
                 setTitle(title);
             }else{
-                getSupportActionBar().hide();
+                setTitleVisibility(View.GONE);
             }
         }else{
             mWebView.interfaceJs(new JSTitle(getSupportActionBar()));
@@ -77,7 +77,6 @@ public class TzjWebViewActivity extends AppCompatActivity {
         mWebView.interfaceJs(new JSUserInfo());
         mWebView.loadUrl(url);
         mWebView.addJavascriptInterface(null,"");
-        setTitle(url);
     }
 
     @Override
