@@ -71,6 +71,11 @@ flutter 调用android 的 webview
         ext.javaVersion = JavaVersion.VERSION_1_8
     }
     ```
+## 完善
+```text
+要给个变量
+JSUserInfo.login
+```
 
 ## example
 example 目录有个 demo

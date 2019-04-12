@@ -58,8 +58,10 @@ public class TzjWebViewActivity extends AppCompatActivity {
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
-                if (!TextUtils.isEmpty(title)){
-                    setTitle(title);
+                if (showTitle == null){
+                    if (!TextUtils.isEmpty(title)){
+                        setTitle(title);
+                    }
                 }
             }
         });
