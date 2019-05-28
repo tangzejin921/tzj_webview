@@ -33,7 +33,7 @@ import com.tzj.webview.utils.UtilWebView;
 
 public class TzjWebView extends WebView {
     public static final String NET_ERR_HTML = "file:///android_asset/net_error.html";
-    private Activity mActivity;
+//    private Activity mActivity;
     private WebViewClientDelegate webViewClient = new WebViewClientDelegate(this);
     private WebChromeClientDelegate webChromeClient = new WebChromeClientDelegate(this);
 
@@ -73,7 +73,7 @@ public class TzjWebView extends WebView {
     @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     protected void init() {
         if ((getContext() instanceof Activity)) {
-            mActivity = (Activity) getContext();
+            Activity mActivity = (Activity) getContext();
             //硬件加速
             mActivity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED,
                     WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
@@ -225,7 +225,7 @@ public class TzjWebView extends WebView {
     public void destroy() {
         setWebViewClient(webViewClient = null);
         setWebChromeClient(webChromeClient = null);
-        mActivity = null;
+//        mActivity = null;
 
         loadUrl("about:blank");
         zoomOut();
